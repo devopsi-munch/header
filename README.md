@@ -1,8 +1,8 @@
-#devopsi
+# devopsi
 
 Business page microservice for a web-based restaurant review platform.
 
-##Header Service API Reference
+## Header Service API Reference
 
 | HTTP Method   | Endpoint               | Description                                                   |
 |:--------------|:-----------------------|:--------------------------------------------------------------|
