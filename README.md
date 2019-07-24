@@ -60,3 +60,20 @@ URL Params
 
 Data Params
 ```{"name": "newname"}```
+
+---
+
+URL
+- /businesses/:id/header
+
+Method
+- DELETE
+
+Description
+- Delete an existing listing
+
+URL Params
+- Business ID required
+
+Data Params
+- None
