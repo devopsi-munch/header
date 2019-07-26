@@ -13,6 +13,11 @@ const makeRestaurantName = () => {
 };
 
 const listingDataGen = counter => `${counter},${makeRestaurantName()},true,${faker.random.number({ min: 1, max: 4 })}\n`;
+const reviewDataGen = (counter) => {
+  const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  const year = ['2015', '2016', '2017', '2018', '2019'];
+  
+}
 
 const stream = fs.createWriteStream('postgresDataListing3.csv');
 
