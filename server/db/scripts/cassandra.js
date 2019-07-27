@@ -16,10 +16,10 @@ const year = ['2015', '2016', '2017', '2018', '2019'];
 const categories = ['Pizza', 'Steak', 'Brunch', 'Seafood', 'Italian', 'Cafe', 'Restaurant', 'Shoppe', 'Diner'];
 
 const reviewDataGen = (reviewID, listingID) => {
-  return `${reviewID},${faker.random.number({ min: 1, max: 5 })},${year[faker.random.number({ min: 0, max: 4 })]}-${month[faker.random.number({min:0, max:11})]}-${faker.random.number({min: 1, max: 28}).toString()},${listingID}\n`;
+  return `${reviewID},${year[faker.random.number({ min: 0, max: 4 })]}-${month[faker.random.number({min:0, max:11})]}-${faker.random.number({min: 1, max: 28}).toString()},${faker.random.number({ min: 1, max: 5 })}`;
 };
 
-const categoriesDataGen = counter => `${counter},${categories[faker.random.number({ min: 0, max: 8 })]},${counter}\n`;
+const categoriesDataGen = counter => `${counter},${categories[faker.random.number({ min: 0, max: 8 })]}`;
 
 const stream = fs.createWriteStream('./data/all_listing_data.csv');
 const rows = 10000;
@@ -27,27 +27,27 @@ const rows = 10000;
 const dataGen = (writer, encoding, cb) => {
   let i = 0;
   let j = 0;
-  let restaurant = listingDataGen(j);
-  let category = categoriesDataGen(j);
+  let restaurant = listingDataGen(i);
+  let category = categoriesDataGen(i);
   write();
   function write() {
     let ok = true;
     do {   
       // let data = reviewDataGen(i, j);
-      const data = `${restaurant},${reviewDataGen(j, i)},${category}`;
-      i++;
-      if (i % 60 === 0) {
-        j++
+      const data = `${restaurant},${reviewDataGen(j, i)},${category}\n`;
+      j++;
+      if (j % 60 === 0) {
+        i++
         restaurant = listingDataGen(i);
         category = categoriesDataGen(i);
       }
-      if (i === rows) {
+      if (j === rows) {
         writer.write(data, encoding, cb);
       } else {
         ok = writer.write(data, encoding);
       }
-    } while (i < rows && ok);
-    if (i > 0) {
+    } while (j < rows && ok);
+    if (j > 0) {
       writer.once('drain', write);
     }
   }
