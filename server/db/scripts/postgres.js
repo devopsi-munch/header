@@ -1,8 +1,5 @@
 const fs = require('fs');
-// const csvWriter = require('csv-write-stream');
-// const writer = csvWriter();
 const faker = require('faker');
-// var counter = 0;
 
 const makeRestaurantName = () => {
   const foodTypes = ['Pizza', 'Steak', 'Brunch', 'Seafood', 'Italian', 'Chinese', 'Japanese', 'Korean', 'Seafood', 'Fish', 'Pho', 'Noodle', 'Ramen'];
@@ -35,7 +32,6 @@ const dataGen = (writer, encoding, cb) => {
     let ok = true;
     do {
       // let data = listingDataGen(i);
-      // let data = `${i},${makeRestaurantName()},true,${faker.random.number({ min: 1, max: 4 })}\n`;
       // let data = reviewDataGen(i, j);
       let data = categoriesDataGen(i);
       i++;
