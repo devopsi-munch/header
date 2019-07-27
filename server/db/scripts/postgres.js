@@ -21,23 +21,18 @@ const reviewDataGen = (reviewID, listingID) => {
 
 const categoriesDataGen = counter => `${counter},${categories[faker.random.number({ min: 0, max: 8 })]},${counter}\n`;
 
-const stream = fs.createWriteStream('./data/categories2.csv');
-const rows = 10000000;
-
-const dataGen = (writer, encoding, cb) => {
+const dataGen = (writer, rows, dataOption, encoding, cb) => {
   let i = 0;
-  // let j = 0;
+  let j = 0;
   write();
   function write() {
     let ok = true;
     do {
-      // let data = listingDataGen(i);
-      // let data = reviewDataGen(i, j);
-      let data = categoriesDataGen(i);
+      const data = dataOption(i, j);
       i++;
-      // if (i % 60 === 0) {
-      //   j++
-      // }
+      if (i % 60 === 0) {
+        j++
+      }
       if (i === rows) {
         writer.write(data, encoding, cb);
       } else {
@@ -50,4 +45,6 @@ const dataGen = (writer, encoding, cb) => {
   }
 };
 
-dataGen(stream, 'utf8', () => {console.log('success'); });
+dataGen(fs.createWriteStream('./data/reviews2.csv'), 600000000, reviewDataGen, 'utf8', () => {console.log('success'); });
+dataGen(fs.createWriteStream('./data/listings2.csv'), 10000000, listingDataGen, 'utf8', () => {console.log('success'); });
+dataGen(fs.createWriteStream('./data/categories2.csv'), 10000000, categoriesDataGen, 'utf8', () => {console.log('success'); });

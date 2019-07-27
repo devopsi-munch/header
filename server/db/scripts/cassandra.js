@@ -15,14 +15,14 @@ const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11',
 const year = ['2015', '2016', '2017', '2018', '2019']; 
 const categories = ['Pizza', 'Steak', 'Brunch', 'Seafood', 'Italian', 'Cafe', 'Restaurant', 'Shoppe', 'Diner'];
 
-const reviewDataGen = (reviewID, listingID) => {
+const reviewDataGen = (reviewID) => {
   return `${reviewID},${year[faker.random.number({ min: 0, max: 4 })]}-${month[faker.random.number({min:0, max:11})]}-${faker.random.number({min: 1, max: 28}).toString()},${faker.random.number({ min: 1, max: 5 })}`;
 };
 
 const categoriesDataGen = counter => `${counter},${categories[faker.random.number({ min: 0, max: 8 })]}`;
 
-const stream = fs.createWriteStream('./data/all_listing_data.csv');
-const rows = 10000;
+const stream = fs.createWriteStream('./data/all_listing_data2.csv');
+const rows = 100000000;
 
 const dataGen = (writer, encoding, cb) => {
   let i = 0;
@@ -32,8 +32,7 @@ const dataGen = (writer, encoding, cb) => {
   write();
   function write() {
     let ok = true;
-    do {   
-      // let data = reviewDataGen(i, j);
+    do {
       const data = `${restaurant},${reviewDataGen(j, i)},${category}\n`;
       j++;
       if (j % 60 === 0) {
