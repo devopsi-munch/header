@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+
+const cassandra = require('cassandra-driver');
 
 const mongoUri = 'mongodb://db:27017/munch';
 mongoose.connect(mongoUri, { useNewUrlParser: true });
