@@ -84,8 +84,8 @@ class App extends React.Component {
       modalStyle: '',
       currentView: {
         avg_stars: 0,
-        categories: '',
-        name: '',
+        category: '',
+        title: '',
         reviews: [],
       },
     };
@@ -102,11 +102,23 @@ class App extends React.Component {
   componentDidMount() {
     console.log('axios request to server');
     let urlStrings = location.href.split('/');
-    let num = urlStrings [urlStrings.length - 2]; 
-    axios.get(`/header/:${num}`)
-      .then(res => {
+    let num = urlStrings[urlStrings.length - 2];
+    axios.get(`/header/${num}`)
+      .then((res) => {
         const state = Object.assign({}, this.state);
-        state.currentView = res.data.rows[0];
+        const { title, category } = res.data.rows[0];
+        const reviews = res.data.rows;
+        let sum = 0;
+        let average = 0;
+        for (let i = 0; i < res.data.rows.length; i++) {
+          sum += res.data.rows[i].rating;
+        }
+        average = sum / res.data.rowLength;
+        state.currentView.avg_stars = average;
+        state.currentView.category = category;
+        state.currentView.title = title;
+        state.currentView.reviews = reviews;
+        console.log(res.data.rows[0]);
         this.setState(state);
       })
       .catch(err => {
@@ -115,7 +127,7 @@ class App extends React.Component {
   }
 
   openDetailsModal() {
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden';
     const state = Object.assign({}, this.state);
     state.detailsModalIsOpen = true;
     state.modalStyle = detailsStyle;
@@ -123,7 +135,7 @@ class App extends React.Component {
   }
 
   openShareModal() {
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden';
     const state = Object.assign({}, this.state);
     state.shareModalIsOpen = true;
     state.modalStyle = shareStyle;
@@ -131,7 +143,7 @@ class App extends React.Component {
   }
 
   openSaveModal() {
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden';
     const state = Object.assign({}, this.state);
     state.saveModalIsOpen = true;
     state.modalStyle = saveStyle;
@@ -139,21 +151,21 @@ class App extends React.Component {
   }
 
   closeDetailsModal() {
-    document.body.style.overflow = 'auto'
+    document.body.style.overflow = 'auto';
     const state = Object.assign({}, this.state);
     state.detailsModalIsOpen = false;
     this.setState(state);
   }
 
   closeShareModal() {
-    document.body.style.overflow = 'auto'
+    document.body.style.overflow = 'auto';
     const state = Object.assign({}, this.state);
     state.shareModalIsOpen = false;
     this.setState(state);
   }
 
   closeSaveModal() {
-    document.body.style.overflow = 'auto'
+    document.body.style.overflow = 'auto';
     const state = Object.assign({}, this.state);
     state.saveModalIsOpen = false;
     this.setState(state);
@@ -168,8 +180,8 @@ class App extends React.Component {
             openDetailsModal={this.openDetailsModal}
             closeDetailsModal={this.closeDetailsModal}
             detailStyle={this.state.modalStyle}
-            restaurantName={this.state.currentView.name}
-            categoryNames={this.state.currentView.categories}
+            restaurantName={this.state.currentView.title}
+            categoryNames={this.state.currentView.category}
             reviewCount={this.state.currentView.reviews.length}
             averageStars={this.state.currentView.avg_stars}
             reviews={this.state.currentView.reviews}
