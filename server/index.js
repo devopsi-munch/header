@@ -22,17 +22,15 @@ app.use('/:id', expressStaticGzip(path.resolve(__dirname, '..', 'client', 'dist'
 
 app.get('/header/:id', (req, res) => {
   console.log('getting: ', req.params.id)
-  let query = Business.find({id: req.params.id});
-  query.exec((err, docs) => {
+  const query = `SELECT * FROM all_listing_data WHERE listingid=${req.params.id}`
+  Business.execute(query, (err, docs) => {
     if (err) {
       console.log(err);
     } else {
       res.send(docs);
+      // console.log(docs);
     }
   });
 });
-
-
-
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));

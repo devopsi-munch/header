@@ -1,22 +1,12 @@
-
 const cassandra = require('cassandra-driver');
 
-const mongoUri = 'mongodb://db:27017/munch';
-mongoose.connect(mongoUri, { useNewUrlParser: true });
-mongoose.Promise = global.Promise;
+const client = new cassandra.Client({ contactPoints: ['127.0.0.1'], localDataCenter: 'datacenter1', keyspace: 'munch' });
 
-const businessSchema = new mongoose.Schema({
-  id: String,
-  name: String,
-  avg_stars: Number,
-  price: Number,
-  categories: String,
-  reviews: [{
-    star: Number,
-    date: { type: Date, default: Date.now },
-  }],
-});
+client.connect((err) => {
+  if (err) { 
+    return console.error(err); 
+  }
+    console.log('Connected to cluster with %d host(s): %j', client.hosts.length, client.hosts.keys());
+  });
 
-const Business = mongoose.model('Business', businessSchema);
-
-module.exports = Business;
+module.exports = client;

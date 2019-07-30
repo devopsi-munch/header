@@ -106,7 +106,7 @@ class App extends React.Component {
     axios.get(`/header/:${num}`)
       .then(res => {
         const state = Object.assign({}, this.state);
-        state.currentView = res.data[0];
+        state.currentView = res.data.rows[0];
         this.setState(state);
       })
       .catch(err => {
