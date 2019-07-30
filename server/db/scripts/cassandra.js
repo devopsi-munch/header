@@ -19,16 +19,16 @@ const reviewDataGen = (reviewID) => {
   return `${reviewID},${year[faker.random.number({ min: 0, max: 4 })]}-${month[faker.random.number({min:0, max:11})]}-${faker.random.number({min: 1, max: 28}).toString()},${faker.random.number({ min: 1, max: 5 })}`;
 };
 
-const categoriesDataGen = counter => `${counter},${categories[faker.random.number({ min: 0, max: 8 })]}`;
+const categoriesDataGen = () => `${categories[faker.random.number({ min: 0, max: 8 })]}`;
 
 const stream = fs.createWriteStream('./data/all_listing_data2.csv');
-const rows = 100000000;
+const rows = 600000000;
 
 const dataGen = (writer, encoding, cb) => {
   let i = 0;
   let j = 0;
   let restaurant = listingDataGen(i);
-  let category = categoriesDataGen(i);
+  let category = categoriesDataGen();
   write();
   function write() {
     let ok = true;
@@ -38,7 +38,7 @@ const dataGen = (writer, encoding, cb) => {
       if (j % 60 === 0) {
         i++
         restaurant = listingDataGen(i);
-        category = categoriesDataGen(i);
+        category = categoriesDataGen();
       }
       if (j === rows) {
         writer.write(data, encoding, cb);

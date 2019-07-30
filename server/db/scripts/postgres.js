@@ -45,6 +45,6 @@ const dataGen = (writer, rows, dataOption, encoding, cb) => {
   }
 };
 
-dataGen(fs.createWriteStream('./data/reviews2.csv'), 600000000, reviewDataGen, 'utf8', () => {console.log('success'); });
-dataGen(fs.createWriteStream('./data/listings2.csv'), 10000000, listingDataGen, 'utf8', () => {console.log('success'); });
-dataGen(fs.createWriteStream('./data/categories2.csv'), 10000000, categoriesDataGen, 'utf8', () => {console.log('success'); });
+dataGen(fs.createWriteStream('./data/reviews3.csv'), 123, reviewDataGen, 'utf8', () => {console.log('success'); });
+dataGen(fs.createWriteStream('./data/listings3.csv'), 123, listingDataGen, 'utf8', () => {console.log('success'); });
+dataGen(fs.createWriteStream('./data/categories3.csv'), 123, categoriesDataGen, 'utf8', () => {console.log('success'); });
