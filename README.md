@@ -55,7 +55,7 @@ Method
 - PATCH
 
 Description
-- Modify an existing listing
+- Modify an existing listing. If modifying a review, date in the format 'yyyy-mm-dd' is required
 
 URL Params
 - Business ID required
