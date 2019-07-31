@@ -9,17 +9,15 @@ const makeRestaurantName = () => {
   return `${adjective} ${foodTypes[Math.floor(Math.random() * foodTypes.length)]} ${foodPlaces[Math.floor(Math.random() * foodPlaces.length)]}`;
 };
 
-const listingDataGen = counter => `${counter},${makeRestaurantName()},${faker.random.boolean()},${faker.random.number({ min: 1, max: 4 })}\n`;
+const listingDataGen = () => `${makeRestaurantName()},${faker.random.boolean()},${faker.random.number({ min: 1, max: 4 })}\n`;
 
 const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 const year = ['2015', '2016', '2017', '2018', '2019']; 
 const categories = ['Pizza', 'Steak', 'Brunch', 'Seafood', 'Italian', 'Cafe', 'Restaurant', 'Shoppe', 'Diner'];
 
-const reviewDataGen = (reviewID, listingID) => {
-  return `${reviewID},${faker.random.number({ min: 1, max: 5 })},${year[faker.random.number({ min: 0, max: 4 })]}-${month[faker.random.number({min:0, max:11})]}-${faker.random.number({min: 1, max: 28}).toString()},${listingID}\n`;
-};
+const reviewDataGen = (reviewid, listingID) => `${faker.random.number({ min: 1, max: 5 })},${year[faker.random.number({ min: 0, max: 4 })]}-${month[faker.random.number({min:0, max:11})]}-${faker.random.number({min: 1, max: 28}).toString()},${listingID}\n`;
 
-const categoriesDataGen = counter => `${counter},${categories[faker.random.number({ min: 0, max: 8 })]},${counter}\n`;
+const categoriesDataGen = counter => `${categories[faker.random.number({ min: 0, max: 8 })]},${counter}\n`;
 
 const dataGen = (writer, rows, dataOption, encoding, cb) => {
   let i = 0;
@@ -45,6 +43,6 @@ const dataGen = (writer, rows, dataOption, encoding, cb) => {
   }
 };
 
-dataGen(fs.createWriteStream('./data/reviews2.csv'), 600000000, reviewDataGen, 'utf8', () => {console.log('success'); });
-dataGen(fs.createWriteStream('./data/listings2.csv'), 10000000, listingDataGen, 'utf8', () => {console.log('success'); });
-dataGen(fs.createWriteStream('./data/categories2.csv'), 10000000, categoriesDataGen, 'utf8', () => {console.log('success'); });
+dataGen(fs.createWriteStream('./data/reviews3.csv'), 600000000, reviewDataGen, 'utf8', () => {console.log('success'); });
+dataGen(fs.createWriteStream('./data/listings3.csv'), 10000000, listingDataGen, 'utf8', () => {console.log('success'); });
+dataGen(fs.createWriteStream('./data/categories3.csv'), 10000000, categoriesDataGen, 'utf8', () => {console.log('success'); });
