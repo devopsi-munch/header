@@ -3,10 +3,7 @@ DROP KEYSPACE IF EXISTS munch;
 CREATE KEYSPACE munch WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
 
 use munch;
--- grouping by listing (all info for listing)
--- grouping by category
 
--- OPTION 1
 CREATE TABLE IF NOT EXISTS ALL_LISTING_DATA (
   LISTINGID INT,
   TITLE TEXT STATIC,
@@ -19,16 +16,3 @@ CREATE TABLE IF NOT EXISTS ALL_LISTING_DATA (
   CATEGORY TEXT,
   PRIMARY KEY (LISTINGID, RATINGDATE)
 );
-
--- sample query: SELECT * FROM LISTING_RATINGS WHERE LISTINGID ='1';
--- CREATE TABLE IF NOT EXISTS LISTINGS_BY_CATEGORY (
---   LISTINGID int,
---   TITLE text,
---   CLAIMED BOOLEAN,
---   PRICE INT,
---   RATINGID INT,
---   RATING INT,
---   CATEGORYID INT,
---   CATEGORY text,
---   PRIMARY KEY (LISTINGID, CATEGORY)
--- )
