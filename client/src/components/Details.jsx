@@ -249,9 +249,9 @@ class Details extends React.Component {
 
     const reviews = this.props.reviews;
     for (let i = 0; i < reviews.length; i++) {
-      let star = reviews[i].star - 1;
+      let star = reviews[i].review - 1;
       star = stars[star];
-      let month = parseFloat(reviews[i].date.split('-')[1]) - 1;
+      let month = parseFloat(reviews[i].reviewdate.split('-')[1]) - 1;
       month = months[month];
       if (i < 12) {
         this.currentYear.push(xAxis[month].concat(',', yAxis[star]));

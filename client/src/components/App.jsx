@@ -103,10 +103,21 @@ class App extends React.Component {
     console.log('axios request to server');
     let urlStrings = location.href.split('/');
     let num = urlStrings [urlStrings.length - 2]; 
-    axios.get(`/header/:${num}`)
-      .then(res => {
+    axios.get(`/header/${num}`)
+      .then((res) => {
         const state = Object.assign({}, this.state);
-        state.currentView = res.data[0];
+        // state.currentView = res.data[0];
+        const { data } = res;
+        const { rows } = data;
+        console.log(rows);
+        state.currentView.reviews = rows;
+        state.currentView.categories = rows[0].category;
+        state.currentView.name = rows[0].title;
+        let sum = 0;
+        for (let i = 0; i < rows.length; i += 1) {
+          sum += rows[i].review;
+        }
+        state.currentView.avg_stars = (sum / rows.length);
         this.setState(state);
       })
       .catch(err => {
