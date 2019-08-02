@@ -236,10 +236,13 @@ class Details extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const state = Object.assign({}, this.state)
+    const state = Object.assign({}, this.state);
     if (this.props.reviewCount !== newProps.reviewCount) {
-      state.props = newProps
-      this.setState(state, () => {this.setLineGraph(); this.countStars()});
+      state.props = newProps;
+      this.setState(state, () => {
+        this.setLineGraph();
+        this.countStars();
+      });
     }
   }
 
@@ -247,25 +250,27 @@ class Details extends React.Component {
     const stars = ['one', 'two', 'three', 'four', 'five'];
     const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
-    const reviews = this.props.reviews;
+    const { reviews } = this.props;
     for (let i = 0; i < reviews.length; i++) {
-      let star = reviews[i].star - 1;
+      let star = reviews[i].review - 1;
       star = stars[star];
-      let month = parseFloat(reviews[i].date.split('-')[1]) - 1;
+      let date = reviews[i].reviewdate.split('-');
+      let month = parseFloat(date[1]) - 1;
+      let year = parseFloat(date[0]);
       month = months[month];
-      if (i < 12) {
+      if (year === 2019) {
         this.currentYear.push(xAxis[month].concat(',', yAxis[star]));
       }
-      if (i >= 12 && i < 24) {
+      if (year === 2018) {
         this.lastYear.push(xAxis[month].concat(',', yAxis[star]));
       }
-      if (i >= 24 && i < 36) {
+      if (year === 2017) {
         this.twoYearsAgo.push(xAxis[month].concat(',', yAxis[star]));
       }
-      if (i >= 36 && i < 48) {
+      if (year === 2016) {
         this.threeYearsAgo.push(xAxis[month].concat(',', yAxis[star]));
       }
-      if (i >= 48 && i < 60) {
+      if (year === 2015) {
         this.fourYearsAgo.push(xAxis[month].concat(',', yAxis[star]));
       }
     }
@@ -273,15 +278,15 @@ class Details extends React.Component {
   
   countStars() {
     this.props.reviews.forEach(val => {
-      if (val.star === 1) {
+      if (val.review === 1) {
         this.oneStar++;
-      } else if (val.star === 2) {
+      } else if (val.review === 2) {
         this.twoStar++;
-      } else if (val.star === 3) {
+      } else if (val.review === 3) {
         this.threeStar++;
-      } else if (val.star === 4) {
+      } else if (val.review === 4) {
         this.fourStar++;
-      } else if (val.star === 5) {
+      } else if (val.review === 5) {
         this.fiveStar++;
       }
     })

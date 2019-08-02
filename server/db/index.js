@@ -1,5 +1,16 @@
-const mongoose = require('mongoose');
+const { Client } = require('pg');
+const client = new Client({
+  host: 'localhost',
+  port: 5432,
+  database: 'munch',
+});
 
-const db = mongoose.connection;
+client.connect((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('connected to db');
+  }
+});
 
-module.exports = db;
+module.exports = client;
