@@ -109,7 +109,6 @@ class App extends React.Component {
         // state.currentView = res.data[0];
         const { data } = res;
         const { rows } = data;
-        console.log(rows);
         state.currentView.reviews = rows;
         state.currentView.categories = rows[0].category;
         state.currentView.name = rows[0].title;
@@ -126,7 +125,7 @@ class App extends React.Component {
   }
 
   openDetailsModal() {
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden';
     const state = Object.assign({}, this.state);
     state.detailsModalIsOpen = true;
     state.modalStyle = detailsStyle;
@@ -134,7 +133,7 @@ class App extends React.Component {
   }
 
   openShareModal() {
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden';
     const state = Object.assign({}, this.state);
     state.shareModalIsOpen = true;
     state.modalStyle = shareStyle;
@@ -142,7 +141,7 @@ class App extends React.Component {
   }
 
   openSaveModal() {
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden';
     const state = Object.assign({}, this.state);
     state.saveModalIsOpen = true;
     state.modalStyle = saveStyle;
@@ -150,21 +149,21 @@ class App extends React.Component {
   }
 
   closeDetailsModal() {
-    document.body.style.overflow = 'auto'
+    document.body.style.overflow = 'auto';
     const state = Object.assign({}, this.state);
     state.detailsModalIsOpen = false;
     this.setState(state);
   }
 
   closeShareModal() {
-    document.body.style.overflow = 'auto'
+    document.body.style.overflow = 'auto';
     const state = Object.assign({}, this.state);
     state.shareModalIsOpen = false;
     this.setState(state);
   }
 
   closeSaveModal() {
-    document.body.style.overflow = 'auto'
+    document.body.style.overflow = 'auto';
     const state = Object.assign({}, this.state);
     state.saveModalIsOpen = false;
     this.setState(state);

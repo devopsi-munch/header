@@ -14,7 +14,6 @@ app.use(express.json());
 app.use('/:id', express.static(path.resolve(__dirname, '..', 'client', 'dist')));
 
 app.get('/header/:id', (req, res) => {
-  console.log('getting: ', req.params.id);
   const listing = req.params.id;
   connection.query(`SELECT * FROM listings, categories, reviews WHERE listings.listingid=${listing} and categories.listingid=${listing} and reviews.listingid=${listing}`, (err, data) => {
     if (err) {
@@ -38,7 +37,7 @@ app.post('/header', (req, res) => {
           console.log(err);
           res.sendStatus(400);
         } else {
-          console.log(data);
+          // console.log(data);
           // res.send(data);
           res.sendStatus(200);
         }
