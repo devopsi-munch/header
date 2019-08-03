@@ -37,8 +37,6 @@ app.post('/header', (req, res) => {
           console.log(err);
           res.sendStatus(400);
         } else {
-          // console.log(data);
-          // res.send(data);
           res.sendStatus(200);
         }
       });
