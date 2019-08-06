@@ -32,12 +32,19 @@ app.post('/header', (req, res) => {
       console.log(err);
     } else {
       const { listingid } = data.rows[0];
+      console.log(listingid);
       connection.query(`insert into categories (category, listingid) values ('${category}', ${listingid})`, (err, data) => {
         if (err) {
           console.log(err);
           res.sendStatus(400);
         } else {
-          res.sendStatus(200);
+          connection.query(`insert into reviews (review, reviewdate, listingid) values (${Math.floor(Math.random()*5)+1},'2019-08-06',${listingid})`, (err, data) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.sendStatus(200);
+            }
+          });
         }
       });
     }
